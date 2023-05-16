@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Profile\ChangeCredentialsRequest;
 use App\Http\Requests\Profile\ChangePasswordRequest;
 use App\Http\Requests\Profile\ChangePhoneRequest;
 use App\Models\User;
@@ -29,6 +30,16 @@ class ProfileController extends Controller
 
         return redirect()->route('profile.show', $user->id)->with(
             ['success' => __('profileSettings.changePhone.success.success')]
+        );
+    }
+
+    public function changeCredentials(ChangeCredentialsRequest $request, User $user)
+    {
+        $this->authorize('edit', $user);
+        $user->update($request->validated());
+
+        return redirect()->route('profile.show', $user->id)->with(
+            ['success' => __('profileSettings.changeCredentials.success.success')]
         );
     }
 

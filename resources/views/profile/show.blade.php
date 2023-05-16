@@ -12,6 +12,8 @@
 
                 <h2 class="mb-4">Профиль пользователя {{$user->login}}</h2>
                 <p class="mb-1"><strong>Почта:</strong> {{$user->email}}</p>
+                <p class="mb-1"><strong>Имя:</strong> {{$user->firstname}}</p>
+                    <p class="mb-1"><strong>Фамилия:</strong> {{$user->lastname}}</p>
                 <p class="mb-4"><strong>Номер телефона:</strong> {{$user->phone}}</p>
                     @can('edit', $user)
                 <a href="{{route('profile.edit', $user->id)}}" class="btn btn-primary">Обновить данные</a>

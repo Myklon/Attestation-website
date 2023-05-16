@@ -59,6 +59,7 @@ Route::prefix('profile')->middleware('regex.id')->controller(\App\Http\Controlle
         // Update user credentials
         Route::post('{user}/change_phone','changePhone')->name('profile.change_phone');
         Route::post('{user}/change_password','changePassword')->name('profile.change_password');
+        Route::post('{user}/change_credentials','changeCredentials')->name('profile.change_credentials');
     });
 });
 

@@ -20,8 +20,22 @@
                     @enderror
                 </div>
                 <div class="form-group mb-3">
+                    <label for="firstname">Имя:</label>
+                    <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Введите имя" value="{{old('firstname')}}">
+                    @error('firstname')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
+                </div>
+                <div class="form-group mb-3">
+                    <label for="lastname">Фамилия:</label>
+                    <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Введите фамилию" value="{{old('lastname')}}">
+                    @error('lastname')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
+                </div>
+                <div class="form-group mb-3">
                     <label for="phone">Номер телефона:</label>
-                    <input type="tel" name="phone" class="form-control" id="phone" placeholder="Введите свой номер телефона" value="+12345678901">
+                    <input type="tel" name="phone" class="form-control" id="phone" placeholder="Введите свой номер телефона" value="">
                     @error('phone')
                     <p class="text-danger">{{$message}}</p>
                     @enderror
