@@ -23,6 +23,7 @@
                 <button type="submit" class="btn btn-primary">Изменить персональные данные</button>
             </form>
             <hr>
+
             <form action="{{route('profile.change_phone', $user->id)}}" method="post">
                 @csrf
                 <div class="form-group mb-3">
