@@ -42,6 +42,7 @@
                 {{$message}}
             </div>
             @enderror
+
             <h3 class="">Изменить пароль</h3>
             <form action="{{route('profile.change_password', $user->id)}}" method="post">
                 @csrf
