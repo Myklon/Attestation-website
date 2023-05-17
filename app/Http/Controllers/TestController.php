@@ -32,6 +32,11 @@ class TestController extends Controller
         return view('test.create', compact('categories'));
     }
 
+    public function constructTestForm(Test $test)
+    {
+        return view('test.construct', compact('test'));
+    }
+
     public function store(FormTestCreateRequest $request, TestFileService $testFileService)
     {
 //        $data = $request->only('title','short_description','description','price','category_id');
@@ -44,5 +49,33 @@ class TestController extends Controller
 //        ProductService::handleUploadedFiles($request->file('files'), $test->id);
 
         return redirect()->route('test.show', $test->id)->with('success', __('test.create.success.success'));
+    }
+
+    public function editTestForm(Test $test)
+    {
+        $this->authorize('edit', $test);
+        $categories = Category::limit(100)->get();
+        return view('test.edit', compact('categories', 'test'));
+    }
+
+    public function update(FormTestUpdateRequest $request, Test $test)
+    {
+        $this->authorize('edit', $test);
+        $data = $request->validated();
+
+        if($request->hasFile('cover')) {
+            if($test->cover === "covers/default.png")
+            {
+                $cover = $request->cover->store('covers');
+                $data['cover'] = $cover;
+            }
+            else {
+                $cover = $request->file('cover')->storeAs('', $test->cover);
+            }
+        }
+
+        $test->update($data);
+
+        return redirect()->route('test.show', $test->id)->with('success', __('product.edit.success.success'));
     }
 }

@@ -23,7 +23,8 @@
                 <h2>Создатель: <a href="{{route('profile.show', $test->user->id)}}">{{$test->user->login}}</a></h2>
                 @can('edit', $test)
                 <div class="d-inline">
-                    <a class="btn btn-primary" href="{{route('test.edit', $test->id)}}" role="button">Изменить</a>
+                    <a class="btn btn-primary" href="{{route('test.edit', $test->id)}}" role="button">Изменить информацию</a>
+                    <a class="btn btn-primary" href="{{route('test.construct', $test->id)}}" role="button">Изменить вопросы</a>
                     <form class="mt-2" action="{{route('test.remove', $test->id)}}" method="post">
                         @csrf
                         @method('delete')

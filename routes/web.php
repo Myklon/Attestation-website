@@ -41,7 +41,10 @@ Route::prefix('tests')->controller(\App\Http\Controllers\TestController::class)-
         // Edit Test
         Route::get('{test}/edit', 'editTestForm')->name('test.edit');
         Route::post('{test}/update', 'update')->name('test.update');
-        // Remove Test
+        // Construct Test
+        Route::get('{test}/construct', 'constructTestForm')->name('test.construct');
+        Route::post('{test}/construct', 'construct')->name('test.compose');
+        // Delete Test
         Route::delete('{test}/remove', 'removeTest')->name('test.remove');
     });
     // Show Test page
