@@ -10,9 +10,6 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $meta = [
-              'title' => 'Все категории'
-            ];
         $categories = Category::all();
         return view('category.index', compact('categories'));
     }

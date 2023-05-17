@@ -13,12 +13,12 @@
             </div>
         @endif
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 d-flex align-items-stretch">
-{{--                @foreach($products as $product)--}}
-{{--                    @include('partials.product_card')--}}
-{{--                @endforeach--}}
+                @foreach($tests as $test)
+                    @include('partials.test_card')
+                @endforeach
             </div>
         <div class="mt-3">
-{{--            {{ $products->links() }}--}}
+            {{ $tests->links() }}
         </div>
     </div>
 @endsection

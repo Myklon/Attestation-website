@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('right_answers', function (Blueprint $table) {
             $table->id();
+            $table->integer('question_id');
+            $table->integer('answer_id');
             $table->timestamps();
         });
     }

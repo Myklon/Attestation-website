@@ -39,7 +39,7 @@ Route::prefix('tests')->controller(\App\Http\Controllers\TestController::class)-
         Route::get('create', 'createTestForm')->name('test.create');
         Route::post('create', 'store')->name('test.store');
         // Edit Test
-        Route::get('{test}/edit', 'editTestForm')->name('product.edit');
+        Route::get('{test}/edit', 'editTestForm')->name('test.edit');
         Route::post('{test}/update', 'update')->name('test.update');
         // Remove Test
         Route::delete('{test}/remove', 'removeTest')->name('test.remove');

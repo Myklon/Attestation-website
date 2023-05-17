@@ -4,11 +4,11 @@
         <h3 class="text-center">{{$title}}</h3>
         <div class="col-md-6">
             <form method="POST" action="
-            {{isset($product) ? route('product.update', $product->id) : route('product.store')}}"
+            {{isset($test) ? route('test.update', $product->id) : route('product.store')}}"
                   enctype="multipart/form-data">
                 @csrf
                 <div class="form-group mb-3">
-                    <label for="title">Название товара:</label>
+                    <label for="title">Название тестирования:</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="Введите название товара" value="{{ $product->title ?? old('title') }}">
                     @error('title')
                     <p class="text-danger">{{$message}}</p>

@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('short_description');
+            $table->text('description');
+            $table->integer('user_id');
+            $table->string('cover')->default('covers/default.png');
+            $table->integer('category_id');
+            $table->boolean('is_active')->default(0);
             $table->timestamps();
         });
     }

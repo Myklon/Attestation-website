@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Product\FormProductCreateRequest;
-use App\Http\Requests\Product\FormProductUpdateRequest;
+use App\Http\Requests\Product\FormTestCreateRequest;
+use App\Http\Requests\Product\FormTestUpdateRequest;
 use App\Models\Category;
 use App\Models\File;
 use App\Models\Product;
@@ -29,7 +29,7 @@ class ProductController extends Controller
         return view('product.create', compact('categories'));
     }
 
-    public function store(FormProductCreateRequest $request, ProductFileService $productFileService)
+    public function store(FormTestCreateRequest $request, ProductFileService $productFileService)
     {
         $data = $request->only('title','short_description','description','price','category_id');
         $data['user_id'] = Auth::id();
@@ -42,7 +42,7 @@ class ProductController extends Controller
         return redirect()->route('product.show', $product->id)->with('success', __('product.create.success.success'));
     }
 
-//    public function store(FormProductCreateRequest $request, ProductFileService $productFileService)
+//    public function store(FormTestCreateRequest $request, ProductFileService $productFileService)
 //    {
 //        $data = $request->only('title','short_description','description','price','category_id');
 //
@@ -76,7 +76,7 @@ class ProductController extends Controller
         return view('product.edit', compact('categories', 'product'));
     }
 
-    public function update(FormProductUpdateRequest $request, Product $product)
+    public function update(FormTestUpdateRequest $request, Product $product)
     {
         $this->authorize('edit', $product);
         $data = $request->only('title','short_description','description','price','category_id');
