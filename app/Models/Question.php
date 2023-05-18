@@ -9,13 +9,20 @@ class Question extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function answers()
     {
         return $this->hasMany(Answer::class);
     }
 
-    public function right_answer()
+//    public function right_answer()
+//    {
+//        return $this->hasOne(RightAnswer::class);
+//    }
+
+    public function rightAnswers()
     {
-        return $this->hasOne(RightAnswer::class);
+        return $this->belongsToMany(Answer::class, 'right_answers', 'question_id', 'answer_id');
     }
 }

@@ -25,14 +25,12 @@ class FormTestUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|min:4|max:200',
+            'title' => 'required|string|min:4|max:255',
             'short_description' => 'required|string|min:5|max:300',
             'description' => 'required|string|min:5|max:10000',
-            'price' => 'required|numeric|min:0',
+            'is_active' => 'boolean',
             'cover' => 'image|max:2000',
-            'files' => 'max:3',
-            'files.*' => 'image|max:2000',
-            'category_id' => 'required|numeric',
+            'category_id' => 'required|numeric'
         ];
     }
 }

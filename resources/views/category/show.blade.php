@@ -4,16 +4,16 @@
         <h2 class="text-center">Категория: {{$category->title}}</h2>
         @auth()
             <div class="d-grid gap-2 mb-4 col-6 mx-auto">
-                <a href="{{route('product.create')}}" class="btn btn-primary">Создать объявление</a>
+                <a href="{{route('test.create')}}" class="btn btn-primary">Создать тестирование</a>
             </div>
         @endauth
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 d-flex align-items-stretch">
-            @foreach($products as $product)
+            @foreach($tests as $test)
                 @include('partials.test_card')
             @endforeach
         </div>
         <div class="mt-3">
-            {{ $products->links() }}
+            {{ $tests->links() }}
         </div>
     </div>
 @endsection

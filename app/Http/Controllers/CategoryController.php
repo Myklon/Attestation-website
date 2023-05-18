@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Product;
+use App\Models\Test;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -16,7 +16,7 @@ class CategoryController extends Controller
 
     public function productsByCategory(Category $category)
     {
-        $products = Product::where('category_id', $category->id)->orderByDesc('id')->paginate(16);
-        return view('category.show', compact('category','products'));
+        $tests = Test::where('category_id', $category->id)->orderByDesc('id')->paginate(16);
+        return view('category.show', compact('category','tests'));
     }
 }

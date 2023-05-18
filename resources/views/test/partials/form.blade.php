@@ -44,9 +44,9 @@
     <p class="text-danger">{{$message}}</p>
     @enderror
 </div>
-<div class="form-group form-check mb-3">
-    <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" checked> Активное
-    </label>
-</div>
+{{--<div class="form-group form-check mb-3">--}}
+{{--    <label class="form-check-label">--}}
+{{--        <input class="form-check-input" type="checkbox" checked> Активное--}}
+{{--    </label>--}}
+{{--</div>--}}
 <button type="submit" class="btn btn-primary">{{$button}}</button>

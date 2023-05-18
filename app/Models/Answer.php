@@ -9,8 +9,15 @@ class Answer extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function question()
     {
-        return $this->belongsTo(Question::class, 'category_id', 'id');
+        return $this->belongsTo(Question::class);
+    }
+
+    public function rightQuestions()
+    {
+        return $this->belongsToMany(Question::class, 'right_answers', 'answer_id', 'question_id');
     }
 }
