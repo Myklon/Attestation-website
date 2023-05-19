@@ -24,6 +24,6 @@ class TestPolicy
 
     public function delete(User $user, Test $test)
     {
-        return $user->id === $test->user_id;
+        return $user->id === $test->user_id ;
     }
 }

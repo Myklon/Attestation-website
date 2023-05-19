@@ -6,6 +6,8 @@ use App\Http\Requests\Test\FormTestCreateRequest;
 use App\Http\Requests\Test\FormTestUpdateRequest;
 use App\Models\Category;
 use App\Models\Question;
+use App\Models\Result;
+use App\Models\RightAnswer;
 use App\Models\Test;
 use App\Services\TestFileService;
 use App\Services\TestService;
@@ -40,6 +42,39 @@ class TestController extends Controller
         return view('test.construct', compact('test'));
     }
 
+    public function constructTestingForm(Test $test)
+    {
+        $questions = $test->questions()->get();
+
+        return view('test.testing', compact('test', 'questions'));
+    }
+
+    public function calcResults(Request $request, Test $test)
+    {
+         $answers = $request->input('group');
+         $countOfAnswers = count($answers);
+         $rightAnswers = 0;
+         foreach($answers as $questionId => $answerId)
+         {
+             $question = Question::where('id', $questionId)->first();
+             $rightAnswer = $question->rightAnswers[0]->id;
+             if($rightAnswer == $answerId) $rightAnswers++;
+         }
+        $percentage = ($rightAnswers / $countOfAnswers) * 100;
+        $score = round($percentage, 2);
+
+         $result = Result::create([
+             'user_id' => Auth::id(),
+             'test_id' => $test->id,
+             'count_answers' => $countOfAnswers,
+             'right_answers' => $rightAnswers,
+             'score' => $score
+        ]);
+//         dd($result);
+
+        return redirect()->route('result.index', $result->id);
+    }
+
     public function construct(Request $request, Test $test)
     {
 //        dd($request);
@@ -64,27 +99,7 @@ class TestController extends Controller
                 }
             }
         }
-
-//        foreach ($questions as $questionId => $question) {
-//            $createdQuestion = Question::create([
-//                'question' => $question,
-//                'test_id' => $test->id,
-//            ]);
-//
-//            $answers = $request->input('answer.' . $createdQuestion->id, []);
-//            dd($answers);
-//
-//            foreach ($answers as $answer) {
-//                $createdAnswer = $createdQuestion->answers()->create([
-//                    'answer' => $answer,
-//                ]);
-//
-//                if (in_array($answer, $request->input('correct_answer', []))) {
-//                    $createdQuestion->rightAnswers()->attach($createdAnswer);
-//                }
-//            }
-//        }
-
+        return redirect()->route('test.show', $test->id)->with('success', __('testing.create.success.success'));
     }
 
     public function store(FormTestCreateRequest $request, TestFileService $testFileService)

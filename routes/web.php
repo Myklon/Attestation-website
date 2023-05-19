@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('', 'catalog');
 Route::get('catalog', [\App\Http\Controllers\TestController::class, 'index'])->name('test.index');
+Route::get('tests', [\App\Http\Controllers\TestController::class, 'index'])->name('test.index');
 
 
 // Auth pages
@@ -46,9 +47,18 @@ Route::prefix('tests')->controller(\App\Http\Controllers\TestController::class)-
         Route::post('{test}/construct', 'construct')->name('test.compose');
         // Delete Test
         Route::delete('{test}/remove', 'removeTest')->name('test.remove');
+        // Testing Page
+        Route::get('{test}/testing', 'constructTestingForm')->name('test.testing');
+        Route::post('{test}/testing', 'calcResults')->name('test.calc_results');
     });
     // Show Test page
     Route::get('{test}','showTest')->name('test.show')->middleware('regex.id');
+});
+
+Route::prefix('results')->controller(\App\Http\Controllers\ResultController::class)->group(function () {
+    Route::middleware(['auth', 'regex.id'])->group(function () {
+        Route::get('{result}', 'index')->name('result.index');
+    });
 });
 
 // Profile pages

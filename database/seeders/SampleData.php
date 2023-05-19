@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
+use App\Models\Test;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -22,29 +23,38 @@ class SampleData extends Seeder
         DB::table('categories')->insert(['title' => 'Базы данных']);
         DB::table('categories')->insert(['title' => 'Сети']);
         DB::table('categories')->insert(['title' => 'Программирование']);
+        DB::table('categories')->insert(['title' => 'Web-программирование']);
 
         #Создание пачки пользователей
+//        DB::table('users')->insert([
+//            'login' =>  \Illuminate\Support\Str::random(10),
+//            'firstname' => \Illuminate\Support\Str::random(10),
+//            'lastname' =>  \Illuminate\Support\Str::random(10),
+//            'email' => \Illuminate\Support\Str::random(10).'@gmail.com',
+//            'password' => Hash::make('password'),
+//            'phone' => '+1 234 567 89 10'
+//        ]);
         DB::table('users')->insert([
-            'login' =>  \Illuminate\Support\Str::random(10),
-            'firstname' => \Illuminate\Support\Str::random(10),
-            'lastname' =>  \Illuminate\Support\Str::random(10),
+            'login' =>  "Baser",
+            'firstname' => "Анатолий",
+            'lastname' =>  "Иванов",
             'email' => \Illuminate\Support\Str::random(10).'@gmail.com',
             'password' => Hash::make('password'),
-            'phone' => '+1 234 567 89 10'
+            'phone' => '+12345678911'
         ]);
         DB::table('users')->insert([
-            'login' =>  \Illuminate\Support\Str::random(10),
-            'firstname' => \Illuminate\Support\Str::random(10),
-            'lastname' =>  \Illuminate\Support\Str::random(10),
+            'login' =>  "Steeler",
+            'firstname' => "Евгений",
+            'lastname' =>  "Сергеев",
             'email' => \Illuminate\Support\Str::random(10).'@gmail.com',
             'password' => Hash::make('password'),
-            'phone' => '+1 234 567 89 11'
+            'phone' => '+12345678913'
         ]);
         DB::table('users')->insert([
             'login' =>  "Admin",
             'firstname' => "Никита",
             'lastname' =>  "Илларионов",
-            'email' => \Illuminate\Support\Str::random(10).'@gmail.com',
+            'email' => 'livroklon@gmail.com',
             'password' => Hash::make('password'),
             'phone' => '+1 234 567 89 12'
         ]);
@@ -54,7 +64,7 @@ class SampleData extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-//        Product::factory(55)->create();
+        Test::factory(100)->create();
         #Создание объявлений-заглушек
 //        DB::table('products')->insert([
 //           'title' => 'Заглушка первая',

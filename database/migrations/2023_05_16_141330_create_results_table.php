@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('test_id');
-            $table->integer('score');
+            $table->integer('count_answers');
+            $table->integer('right_answers');
+            $table->float('score');
             $table->timestamps();
         });
     }
