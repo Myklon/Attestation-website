@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
+
     {{--    <link rel="stylesheet" href="{{ asset("storage/css/styles.css") }}">--}}
 {{--    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">--}}
     <title>{{$title ?? "Akihime"}}</title>

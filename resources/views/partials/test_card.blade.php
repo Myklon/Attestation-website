@@ -8,7 +8,7 @@
                     href="{{route('category.show', $test->category->id)}}">{{$test->category->title}}</a></p>
             <p class="card-text">{{$test->short_description}}</p>
             <div class="d-flex justify-content-between align-items-center">
-                <h5 class="text">Прошло: {{$test->price ?? "0"}} человек</h5>
+                <h5 class="text">Прохождений теста: {{$test->results->count() ?? 0}}</h5>
                 <p class="card-text"><a
                         href="{{route('profile.show', $test->user->id)}}">{{$test->user->login}}</a></p>
             </div>

@@ -21,6 +21,7 @@
                         <a href="{{route('profile.results', $user->id)}}" class="btn btn-success">Посмотреть историю пройденых тестов</a>
                         </div>
                     @endcan
+
 {{--                    </div>--}}
                     @can('edit', $user)
                         <div class="row mt-3">
@@ -30,10 +31,10 @@
                     <hr>
                     @can('seeResults', $user)
                         <div class="row mt-3">
-                            <a href="{{route('profile.show_hided_tests', $user->id)}}" class="btn btn-primary">Просмотреть скрытые тесты</a>
+                            <a href="{{route('profile.show', $user->id)}}" class="btn btn-primary">Просмотреть созданные тесты</a>
                         </div>
                     @endcan
-                @include('profile.partials.user_tests', ['header' => 'Созданные тестирования'])
+                @include('profile.partials.user_tests', ['header' => 'Скрытые тестирования'])
             </div>
         </div>
     </div>

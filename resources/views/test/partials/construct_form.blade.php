@@ -4,15 +4,24 @@
 <div id="questions">
     <button type="button" class="btn btn-success mb-3" onclick="addQuestion()">Добавить вопрос</button>
 </div>
-
+<div class="form-group form-check mb-3">
+    <label class="form-check-label">
+        <input class="form-check-input"  name="publication" type="checkbox"> Опубликовать
+    </label>
+</div>
 <div class="mt-3">
     <button type="submit" class="btn btn-primary">{{$button}}</button>
+    <p id="count" class="count mt-3"></p>
 </div>
 
 <script>
     let questionIndex = 0;
+    let current = 0;
 
     function addQuestion() {
+        current++;
+        document.getElementById("count").innerHTML = "Всего вопросов: " + current;
+
         questionIndex++;
 
         const questionGroup = document.createElement('div');
@@ -20,13 +29,14 @@
 
         const questionLabel = document.createElement('label');
         questionLabel.setAttribute('for', 'question');
-        questionLabel.textContent = 'Вопрос:';
+        questionLabel.textContent = 'Вопрос №:';
 
         const questionInput = document.createElement('input');
         questionInput.setAttribute('type', 'text');
         questionInput.classList.add('form-control');
         questionInput.setAttribute('name', 'question[]');
         questionInput.setAttribute('placeholder', 'Введите вопрос');
+        questionInput.required = true;
         {{--questionInput.value = "{{ old('question.' + questionIndex) }}";--}}
 
         const answersLabel = document.createElement('label');
@@ -45,6 +55,7 @@
             answerRadio.classList.add('mr-2');
             answerRadio.classList.add('form-check-input');
             answerRadio.setAttribute('name', 'correct_answer[' + questionIndex + ']');
+            answerRadio.required = true;
             answerRadio.value = i; // Значение радиокнопки - порядковый номер варианта ответа
             if (i === 0) {
                 answerRadio.checked = true; // Первый вариант ответа по умолчанию выбран как правильный
@@ -55,6 +66,7 @@
             answerInput.classList.add('form-control', 'mb-2');
             answerInput.setAttribute('name', 'answer[' + questionIndex + '][]');
             answerInput.setAttribute('placeholder', 'Введите вариант ответа');
+            answerInput.required = true;
 
             answerWrapper.appendChild(answerRadio);
             answerWrapper.appendChild(answerInput);
@@ -66,6 +78,8 @@
         deleteButton.textContent = 'Удалить вопрос';
         deleteButton.addEventListener('click', function () {
             questionGroup.remove();
+            current--;
+            document.getElementById("count").innerHTML = "Всего вопросов: " + current;
         });
 
         questionGroup.appendChild(questionLabel);

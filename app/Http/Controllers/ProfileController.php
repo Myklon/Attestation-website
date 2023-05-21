@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Profile\ChangeCredentialsRequest;
 use App\Http\Requests\Profile\ChangePasswordRequest;
 use App\Http\Requests\Profile\ChangePhoneRequest;
+use App\Models\Result;
+use App\Models\Test;
 use App\Models\User;
 use App\Services\HashService;
 use Illuminate\Http\Request;
@@ -13,8 +15,27 @@ class ProfileController extends Controller
 {
     public function showProfile(User $user)
     {
-//        $products = $user->products()->orderByDesc('id')->paginate(8);
-        return view('profile.show', compact('user'));
+        $tests = $user->tests()
+                      ->where('is_active', 1)
+                      ->orderByDesc('id')
+                      ->paginate(8);
+
+        return view('profile.show', compact('user', "tests"));
+    }
+
+    public function showResults(User $user)
+    {
+        $results = $user->results()->orderBy('id', 'desc')->get();
+        return view('profile.results', compact('user', "results"));
+    }
+
+    public function showHidedTests(User $user)
+    {
+        $this->authorize('edit', $user);
+        $tests = Test::where('is_active', 0)
+                     ->orderByDesc('id')
+                     ->paginate(16);
+        return view('profile.show_hided_tests', compact('user', "tests"));
     }
 
     public function editProfileForm(Request $request, User $user)

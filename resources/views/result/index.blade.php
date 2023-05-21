@@ -4,6 +4,7 @@
         <h2 class="text-center mb-4">Результат тестирования пользователя {{$result->user->login}}</h2>
         @php
             $createdAt = \Carbon\Carbon::parse($result->created_at);
+            $createdAt->setTimezone('MSK');
         @endphp
         <div class="album py-5 bg-light">
             <div class="container">

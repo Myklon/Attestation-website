@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('', 'catalog');
 Route::get('catalog', [\App\Http\Controllers\TestController::class, 'index'])->name('test.index');
-Route::get('tests', [\App\Http\Controllers\TestController::class, 'index'])->name('test.index');
 
 
 // Auth pages
@@ -36,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
 // Test pages
 Route::prefix('tests')->controller(\App\Http\Controllers\TestController::class)->group(function () {
     Route::middleware(['auth', 'regex.id'])->group(function () {
+        // Show user results page
+        Route::get('{test}/results', 'showResults')->name('test.results');
         // Create Test
         Route::get('create', 'createTestForm')->name('test.create');
         Route::post('create', 'store')->name('test.store');
@@ -45,6 +46,9 @@ Route::prefix('tests')->controller(\App\Http\Controllers\TestController::class)-
         // Construct Test
         Route::get('{test}/construct', 'constructTestForm')->name('test.construct');
         Route::post('{test}/construct', 'construct')->name('test.compose');
+        // Construct editing Test
+        Route::get('{test}/construct-edit', 'constructEditTestForm')->name('test.construct-edit');
+        Route::post('{test}/construct-edit', 'constructEdit')->name('test.compose-edit');
         // Delete Test
         Route::delete('{test}/remove', 'removeTest')->name('test.remove');
         // Testing Page
@@ -67,6 +71,10 @@ Route::prefix('profile')->middleware('regex.id')->controller(\App\Http\Controlle
     Route::get('{user}', 'showProfile')->name('profile.show');
 
     Route::middleware(['auth'])->group(function () {
+        // Show user results page
+        Route::get('{user}/results', 'showResults')->name('profile.results');
+        // Show hided tests page
+        Route::get('{user}/hided-tests', 'showHidedTests')->name('profile.show_hided_tests');
         // Edit profile
         Route::get('{user}/edit', 'editProfileForm')->name('profile.edit');
         // Update user credentials

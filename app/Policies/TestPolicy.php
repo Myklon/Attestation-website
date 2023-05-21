@@ -17,7 +17,22 @@ class TestPolicy
      * @param  \App\Models\Test  $test
      * @return \Illuminate\Auth\Access\Response|bool
      */
+    public function open(User $user, Test $test)
+    {
+        return $user->id === $test->user_id;
+    }
+
     public function edit(User $user, Test $test)
+    {
+        return $user->id === $test->user_id;
+    }
+
+    public function seeHistory(User $user, Test $test)
+    {
+        return $user->id === $test->user_id;
+    }
+
+    public function seeDeletedTests(User $user, Test $test)
     {
         return $user->id === $test->user_id;
     }

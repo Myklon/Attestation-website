@@ -19,7 +19,7 @@ class TestController extends Controller
 {
     public function index()
     {
-        $tests = Test::where('is_active', 0)
+        $tests = Test::where('is_active', 1)
             ->orderByDesc('id')
             ->paginate(16);
 
@@ -28,6 +28,7 @@ class TestController extends Controller
 
     public function showTest(Test $test)
     {
+        if($test->is_active == 0) $this->authorize('open', $test);
         return view('test.show', compact('test'));
     }
 
@@ -42,11 +43,24 @@ class TestController extends Controller
         return view('test.construct', compact('test'));
     }
 
+    public function constructEditTestForm(Test $test)
+    {
+        return view('test.construct', compact('test'));
+    }
+
     public function constructTestingForm(Test $test)
     {
+        $this->authorize('open', $test);
         $questions = $test->questions()->get();
 
         return view('test.testing', compact('test', 'questions'));
+    }
+
+    public function showResults(Test $test)
+    {
+        $this->authorize('seeHistory', $test);
+        $results = $test->results()->orderBy('id', 'desc')->get();
+        return view('test.results', compact('test', "results"));
     }
 
     public function calcResults(Request $request, Test $test)
@@ -99,6 +113,14 @@ class TestController extends Controller
                 }
             }
         }
+        if(isset($request->publication)){
+            $test->is_active = 1;
+        }
+        else {
+            $test->is_active = 0;
+        }
+        $test->save();
+
         return redirect()->route('test.show', $test->id)->with('success', __('testing.create.success.success'));
     }
 
@@ -147,12 +169,13 @@ class TestController extends Controller
     public function removeTest(Test $test)
     {
         $this->authorize('delete', $test);
-        if($test->cover !== "covers/default.png")
-        {
-            Storage::delete($test->cover);
-        }
+//        if($test->cover !== "covers/default.png")
+//        {
+//            Storage::delete($test->cover);
+//        }
 
-        $test->delete();
+        $test->is_active = 0;
+        $test->save();
 
         return redirect()->route('test.index')->with('success', __('test.delete.success.success'));
     }

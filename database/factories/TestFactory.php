@@ -22,7 +22,8 @@ class TestFactory extends Factory
             'short_description' => "Фабричное краткое описание",
             'description' => fake()->text(300),
             'user_id' => fake()->numberBetween(1,3),
-            'category_id' => fake()->numberBetween(1,4)
+            'category_id' => fake()->numberBetween(1,4),
+            'is_active' => 1,
         ];
     }
 }
