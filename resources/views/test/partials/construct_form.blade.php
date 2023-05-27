@@ -1,4 +1,44 @@
 <div id="questions">
+    @if(!$questions->isEmpty())
+        @foreach($questions as $question)
+            <div class="question-group mb-4">
+                <label for="question">Вопрос:</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    name="old_question[{{$question->id}}]"
+                    placeholder="Измените вопрос"
+                    value={{$question->question}}
+                    required>
+                <label for="answer">Ответы:</label>
+                <div class="answer-group">
+            @foreach($question->answers as $answer)
+                        <div class="answer-wrapper">
+                            <input
+                                type="radio"
+                                class="mr-2 form-check-input"
+                                name="old_correct_answer[{{$question->id}}]"
+                                required
+                                value={{$answer->id}}
+                                @if($question->rightAnswers[0]->id == $answer->id)
+                                checked
+                                @endif
+                            >
+                            <input
+                                type="text"
+                                class="form-control mb-2"
+                                name="old_answer[{{$question->id}}][{{$answer->id}}]"
+                                placeholder="Введите вариант ответа"
+                                value={{$answer->answer}}
+                                required
+                            >
+                        </div>
+            @endforeach
+                </div>
+                <button class="btn btn-danger mb-2">Удалить вопрос</button>
+            </div>
+        @endforeach
+    @endif
 </div>
 
 <div id="questions">
@@ -29,7 +69,7 @@
 
         const questionLabel = document.createElement('label');
         questionLabel.setAttribute('for', 'question');
-        questionLabel.textContent = 'Вопрос №:';
+        questionLabel.textContent = 'Вопрос:';
 
         const questionInput = document.createElement('input');
         questionInput.setAttribute('type', 'text');

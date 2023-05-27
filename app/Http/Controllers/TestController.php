@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Test\FormTestCreateRequest;
 use App\Http\Requests\Test\FormTestUpdateRequest;
+use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Question;
 use App\Models\Result;
@@ -40,7 +41,8 @@ class TestController extends Controller
 
     public function constructTestForm(Test $test)
     {
-        return view('test.construct', compact('test'));
+        $questions = $test->questions()->get();
+        return view('test.construct', compact('test', 'questions'));
     }
 
     public function constructEditTestForm(Test $test)
@@ -91,11 +93,43 @@ class TestController extends Controller
 
     public function construct(Request $request, Test $test)
     {
-//        dd($request);
+        $oldQuestions = $request->input('old_question');
+        $oldAnswers = $request->input('old_answer');
+        $oldRightAnswers =  $request->input('old_correct_answer');
+
+        foreach($oldQuestions as $questionId => $questionText)
+        {
+            $question = Question::findOrFail($questionId);
+            if($question->question != $questionText)
+            {
+                $question->question = $questionText;
+                $question->save();
+            }
+            foreach($oldAnswers[$questionId] as $answerId => $answerText)
+            {
+                $answer = Answer::findOrFail($answerId);
+                if($answer->answer != $answerText)
+                {
+                    $answer->answer = $answerText;
+                    $answer->save();
+                }
+            }
+            $correctAnswer = RightAnswer::where("question_id", $questionId)->get()->first();
+            if($oldRightAnswers[$questionId] != $correctAnswer->answer_id)
+            {
+                $correctAnswer->answer_id = $oldRightAnswers[$questionId];
+                $correctAnswer->save();
+            }
+        }
+
         $questions = $request->input('question');
         $answers = $request->input('answer');
         $rightAnswers =  $request->input('correct_answer');
 //        dd($questions, $answers, $rightAnswers);
+
+        if(!isset($questions))
+            return redirect()->route('test.show', $test->id)->with('success', __('testing.create.success.success'));
+
 
         foreach ($questions as $questionId => $question) {
             $createdQuestion = Question::create([

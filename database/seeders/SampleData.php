@@ -34,22 +34,22 @@ class SampleData extends Seeder
 //            'password' => Hash::make('password'),
 //            'phone' => '+1 234 567 89 10'
 //        ]);
-        DB::table('users')->insert([
-            'login' =>  "Baser",
-            'firstname' => "Анатолий",
-            'lastname' =>  "Иванов",
-            'email' => \Illuminate\Support\Str::random(10).'@gmail.com',
-            'password' => Hash::make('password'),
-            'phone' => '+12345678911'
-        ]);
-        DB::table('users')->insert([
-            'login' =>  "Steeler",
-            'firstname' => "Евгений",
-            'lastname' =>  "Сергеев",
-            'email' => \Illuminate\Support\Str::random(10).'@gmail.com',
-            'password' => Hash::make('password'),
-            'phone' => '+12345678913'
-        ]);
+//        DB::table('users')->insert([
+//            'login' =>  "Baser",
+//            'firstname' => "Анатолий",
+//            'lastname' =>  "Иванов",
+//            'email' => \Illuminate\Support\Str::random(10).'@gmail.com',
+//            'password' => Hash::make('password'),
+//            'phone' => '+12345678911'
+//        ]);
+//        DB::table('users')->insert([
+//            'login' =>  "Steeler",
+//            'firstname' => "Евгений",
+//            'lastname' =>  "Сергеев",
+//            'email' => \Illuminate\Support\Str::random(10).'@gmail.com',
+//            'password' => Hash::make('password'),
+//            'phone' => '+12345678913'
+//        ]);
         DB::table('users')->insert([
             'login' =>  "Admin",
             'firstname' => "Никита",
@@ -58,13 +58,13 @@ class SampleData extends Seeder
             'password' => Hash::make('password'),
             'phone' => '+1 234 567 89 12'
         ]);
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
-        Test::factory(100)->create();
+//
+//        // \App\Models\User::factory()->create([
+//        //     'name' => 'Test User',
+//        //     'email' => 'test@example.com',
+//        // ]);
+//
+//        Test::factory(100)->create();
         #Создание объявлений-заглушек
 //        DB::table('products')->insert([
 //           'title' => 'Заглушка первая',

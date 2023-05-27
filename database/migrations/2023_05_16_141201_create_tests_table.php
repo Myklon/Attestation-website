@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('short_description');
             $table->text('description');
-            $table->integer('user_id');
+            $table->bigInteger('user_id', unsigned: true);
             $table->string('cover')->default('covers/default.png');
-            $table->integer('category_id');
+            $table->bigInteger('category_id', unsigned: true);
             $table->boolean('is_active')->default(0);
             $table->timestamps();
         });

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('test_id');
+            $table->bigInteger('user_id', unsigned: true);
+            $table->bigInteger('test_id', unsigned: true);
             $table->integer('count_answers');
             $table->integer('right_answers');
             $table->float('score');

@@ -16,7 +16,10 @@ class CategoryController extends Controller
 
     public function productsByCategory(Category $category)
     {
-        $tests = Test::where('category_id', $category->id)->orderByDesc('id')->paginate(16);
+        $tests = Test::where('category_id', $category->id)
+            ->where('is_active', 1)
+            ->orderByDesc('id')
+            ->paginate(16);
         return view('category.show', compact('category','tests'));
     }
 }
