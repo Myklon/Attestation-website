@@ -97,28 +97,31 @@ class TestController extends Controller
         $oldAnswers = $request->input('old_answer');
         $oldRightAnswers =  $request->input('old_correct_answer');
 
-        foreach($oldQuestions as $questionId => $questionText)
+        if(isset($oldQuestions))
         {
-            $question = Question::findOrFail($questionId);
-            if($question->question != $questionText)
+            foreach($oldQuestions as $questionId => $questionText)
             {
-                $question->question = $questionText;
-                $question->save();
-            }
-            foreach($oldAnswers[$questionId] as $answerId => $answerText)
-            {
-                $answer = Answer::findOrFail($answerId);
-                if($answer->answer != $answerText)
+                $question = Question::findOrFail($questionId);
+                if($question->question != $questionText)
                 {
-                    $answer->answer = $answerText;
-                    $answer->save();
+                    $question->question = $questionText;
+                    $question->save();
                 }
-            }
-            $correctAnswer = RightAnswer::where("question_id", $questionId)->get()->first();
-            if($oldRightAnswers[$questionId] != $correctAnswer->answer_id)
-            {
-                $correctAnswer->answer_id = $oldRightAnswers[$questionId];
-                $correctAnswer->save();
+                foreach($oldAnswers[$questionId] as $answerId => $answerText)
+                {
+                    $answer = Answer::findOrFail($answerId);
+                    if($answer->answer != $answerText)
+                    {
+                        $answer->answer = $answerText;
+                        $answer->save();
+                    }
+                }
+                $correctAnswer = RightAnswer::where("question_id", $questionId)->get()->first();
+                if($oldRightAnswers[$questionId] != $correctAnswer->answer_id)
+                {
+                    $correctAnswer->answer_id = $oldRightAnswers[$questionId];
+                    $correctAnswer->save();
+                }
             }
         }
 
